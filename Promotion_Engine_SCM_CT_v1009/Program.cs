@@ -1,4 +1,9 @@
 ﻿using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Promotion_Engine_SCM_CT_v1009.Core.Database;
+using Promotion_Engine_SCM_CT_v1009.Utilities;
 
 namespace Promotion_Engine_SCM_CT_v1009
 {
@@ -6,7 +11,19 @@ namespace Promotion_Engine_SCM_CT_v1009
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var serviceProvider = new ServiceCollection()
+                .AddDbContext<PromotionEngineDbContext>(options => options.UseInMemoryDatabase(databaseName: "PromotionEngine"))
+                .BuildServiceProvider();
+
+            DataGenerator.Generate(serviceProvider);
+
+            var checkDatabase = serviceProvider.GetRequiredService<PromotionEngineDbContext>();
+            var result = checkDatabase.PromotionTypes.ToList();
+
+            foreach (var pt in result)
+            {
+                Console.WriteLine(pt.PromotionTypeId + " - " + pt.Cost);
+            }
         }
     }
 }

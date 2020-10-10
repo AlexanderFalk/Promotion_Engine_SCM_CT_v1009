@@ -12,5 +12,10 @@
     <Folder Include="Utilities\" />
     <Folder Include="Models\" />
     <Folder Include="Core\Interfaces\" />
+    <Folder Include="Core\Database\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.8" />
   </ItemGroup>
 </Project>
