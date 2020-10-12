@@ -9,7 +9,7 @@ namespace Promotion_Engine_SCM_CT_v1009.Models
     /// </summary>
     public class Cart
     {
-        public List<SKUEnum> SKUs { get; set; }
+        public Dictionary<SKUEnum, int> SKUs { get; set; }
         public bool IsPromotionUsed { get; set; } = false;
         public PromotionType ActivePromotion { get; set; }
         public double TotalCost { get; set; }

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Promotion_Engine_SCM_CT_v1009.Core.Interfaces;
 using Promotion_Engine_SCM_CT_v1009.Models;
 
@@ -9,23 +9,40 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Business
     {
         private Cart _cart = new Cart();
 
-        public CartActions()
-        {
-        }
-
         public void Add(SKUEnum sku)
         {
-            throw new NotImplementedException();
+            // If key is present, update the counter. Else add new key with value of 1
+            if (_cart.SKUs.ContainsKey(sku))
+            {
+                _cart.SKUs[sku] = _cart.SKUs[sku] + 1;
+
+            }
+            else
+            {
+                _cart.SKUs.Add(sku, 1);
+            }
         }
 
         public void Remove(SKUEnum sku)
         {
-            throw new NotImplementedException();
+            // If key is present, there must exist one or more
+            if (_cart.SKUs.ContainsKey(sku))
+            {
+                // If the value is larger than 1, remove one. Else remove the SKU
+                if (_cart.SKUs[sku] > 1)
+                {
+                    _cart.SKUs[sku] = _cart.SKUs[sku] - 1;
+                }
+                else
+                {
+                    _cart.SKUs.Remove(sku);
+                }
+            }
         }
 
         public int Size()
         {
-            throw new NotImplementedException();
+            return _cart.SKUs.Aggregate(0, (total, next) => total + next.Value);
         }
     }
 }
