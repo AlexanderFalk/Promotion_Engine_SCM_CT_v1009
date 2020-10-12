@@ -13,7 +13,7 @@
     </ItemGroup>
     
     <ItemGroup>
-        <ProjectReference Include="../Promotion_Engine_SCM_CT_v1009/Promotion_Engine_SCM_CT_v1009.csproj"/>    
+        <ProjectReference Include="../Promotion_Engine_SCM_CT_v1009/Promotion_Engine_SCM_CT_v1009.csproj" />    
     </ItemGroup>
 
 </Project>

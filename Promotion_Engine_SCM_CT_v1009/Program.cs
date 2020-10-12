@@ -2,7 +2,10 @@
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Promotion_Engine_SCM_CT_v1009.Core.Business;
+using Promotion_Engine_SCM_CT_v1009.Core.DataAccess;
 using Promotion_Engine_SCM_CT_v1009.Core.Database;
+using Promotion_Engine_SCM_CT_v1009.Core.Interfaces;
 using Promotion_Engine_SCM_CT_v1009.Utilities;
 
 namespace Promotion_Engine_SCM_CT_v1009
@@ -13,6 +16,8 @@ namespace Promotion_Engine_SCM_CT_v1009
         {
             var serviceProvider = new ServiceCollection()
                 .AddDbContext<PromotionEngineDbContext>(options => options.UseInMemoryDatabase(databaseName: "PromotionEngine"))
+                .AddTransient<ICartBuilder, CartBuilder>()
+                .AddTransient<IPromotionEngine, PromotionEngine>()
                 .BuildServiceProvider();
 
             DataGenerator.Generate(serviceProvider);

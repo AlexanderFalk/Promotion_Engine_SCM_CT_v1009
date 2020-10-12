@@ -27,5 +27,11 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Interfaces
         /// </summary>
         /// <returns>The current Cart</returns>
         Cart GetCart();
+
+        /// <summary>
+        /// Gets the total cost of the cart with Promotions applied
+        /// </summary>
+        /// <returns>A double representing the cost</returns>
+        double GetTotalCost();
     }
 }

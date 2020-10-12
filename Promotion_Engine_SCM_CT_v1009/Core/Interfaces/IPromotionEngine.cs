@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Promotion_Engine_SCM_CT_v1009.Models;
-using Promotion_Engine_SCM_CT_v1009.Models.DTO;
 
 namespace Promotion_Engine_SCM_CT_v1009.Core.Interfaces
 {
@@ -32,6 +30,6 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Interfaces
         /// </summary>
         /// <param name="sku">The SKU to retrieve the price for</param>
         /// <returns>The price of the specified SKU</returns>
-        List<PromotionDTO> GetPromotions();
+        List<PromotionType> GetPromotions();
     }
 }
