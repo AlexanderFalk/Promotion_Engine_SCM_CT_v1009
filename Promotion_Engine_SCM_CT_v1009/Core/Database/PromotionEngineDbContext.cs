@@ -13,5 +13,6 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Database
         public DbSet<PromotionType> PromotionTypes { get; set; }
         public DbSet<Promotion> Promotions { get; set; }
         public DbSet<PromotionDiscount> PromotionDiscounts { get; set; }
+        public DbSet<Cart> Carts { get; set; }
     }
 }
