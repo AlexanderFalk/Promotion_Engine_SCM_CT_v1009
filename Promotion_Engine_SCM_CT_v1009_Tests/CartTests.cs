@@ -78,23 +78,63 @@ namespace Promotion_Engine_SCM_CT_v1009_Tests
         }
 
         [TestMethod]
-        public void Add_Three_SKU_A_And_Expect_TotalCost_Of_150_Test()
+        public void Add_Three_SKU_A_And_Expect_TotalCost_Of_130_Test()
         {
             // Arrange
-            var expectedTotalCost = 150.0;
+            var expectedTotalCost = 130.0;
             var cart = serviceProvider.GetRequiredService<ICartBuilder>();
 
             // Act
             cart.Add(SKUEnum.A);
-            cart.Add(SKUEnum.C);
-            cart.Add(SKUEnum.C);
-            cart.Add(SKUEnum.D);
+            cart.Add(SKUEnum.A);
+            cart.Add(SKUEnum.A);
 
             var actualcost = cart.GetTotalCost();
 
             // Assert
             Assert.AreEqual(expectedTotalCost, actualcost);
             Assert.IsTrue(cart.GetCart().IsPromotionUsed);
+        }
+
+        [TestMethod]
+        public void Add_1A_1B_1C_Expect_100_Total_Test()
+        {
+            // Arrange
+            var expectedTotalCost = 100.0;
+            var cart = serviceProvider.GetRequiredService<ICartBuilder>();
+
+            // Act
+            cart.Add(SKUEnum.A);
+            cart.Add(SKUEnum.B);
+            cart.Add(SKUEnum.C);
+
+            var actualcost = cart.GetTotalCost();
+
+            // Assert
+            Assert.AreEqual(expectedTotalCost, actualcost);
+            Assert.IsFalse(cart.GetCart().IsPromotionUsed);
+        }
+
+        [TestMethod]
+        public void Add_5A_5B_1C_Expect_370_Total_Test()
+        {
+            // Arrange
+            var expectedTotalCost = 370.0;
+            var cart = serviceProvider.GetRequiredService<ICartBuilder>();
+
+            // Act
+            cart.Add(SKUEnum.A);
+            cart.Add(SKUEnum.A);
+            cart.Add(SKUEnum.A);
+            cart.Add(SKUEnum.A);
+            cart.Add(SKUEnum.A);
+            
+
+            var actualcost = cart.GetTotalCost();
+
+            // Assert
+            Assert.AreEqual(expectedTotalCost, actualcost);
+            Assert.IsFalse(cart.GetCart().IsPromotionUsed);
         }
     }
 }

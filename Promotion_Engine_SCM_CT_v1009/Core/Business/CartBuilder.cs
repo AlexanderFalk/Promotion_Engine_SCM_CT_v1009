@@ -75,7 +75,7 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Business
                 }
                 foreach (var key in _cart.ActivePromotion.Promotions)
                 {
-                    var quotient = (int)Math.Ceiling((double)key.Count / _cart.SKUs[key.SKU]);
+                    var quotient = (int)Math.Ceiling(_cart.SKUs[key.SKU] / (double)key.Count);
                     var remainder = key.Count % _cart.SKUs[key.SKU];
                     if (hasPromotionCostBeenCalculated)
                     {

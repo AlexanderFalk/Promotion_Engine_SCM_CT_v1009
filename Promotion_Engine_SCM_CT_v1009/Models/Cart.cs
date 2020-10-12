@@ -10,6 +10,7 @@ namespace Promotion_Engine_SCM_CT_v1009.Models
     public class Cart
     {
         public Dictionary<SKUEnum, int> SKUs { get; set; } = new Dictionary<SKUEnum, int>();
+        public HashSet<SKUEnum> SKUUsedInPromotions { get; set; } = new HashSet<SKUEnum>();
         public bool IsPromotionUsed { get; set; } = false;
         public PromotionType ActivePromotion { get; set; }
         public double TotalCost { get; set; }
