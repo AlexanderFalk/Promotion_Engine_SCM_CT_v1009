@@ -16,6 +16,7 @@
     <Folder Include="Models\DTO\" />
     <Folder Include="Core\Business\" />
     <Folder Include="Core\DataAccess\" />
+    <Folder Include="Utilities\Extensions\" />
   </ItemGroup>
 
   <ItemGroup>

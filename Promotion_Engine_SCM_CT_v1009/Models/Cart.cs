@@ -12,6 +12,7 @@ namespace Promotion_Engine_SCM_CT_v1009.Models
         public List<SKUEnum> SKUs { get; set; }
         public bool IsPromotionUsed { get; set; } = false;
         public PromotionType ActivePromotion { get; set; }
+        public double TotalCost { get; set; }
 
 
         public virtual PromotionType PromotionType { get; set; }
