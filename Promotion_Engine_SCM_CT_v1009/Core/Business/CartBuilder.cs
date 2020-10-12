@@ -5,7 +5,7 @@ using Promotion_Engine_SCM_CT_v1009.Models;
 
 namespace Promotion_Engine_SCM_CT_v1009.Core.Business
 {
-    public class CartActions : ICartActions
+    public class CartBuilder : ICartBuilder
     {
         private Cart _cart = new Cart();
 
@@ -43,6 +43,11 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Business
         public int Size()
         {
             return _cart.SKUs.Aggregate(0, (total, next) => total + next.Value);
+        }
+
+        public Cart GetCart()
+        {
+            return _cart;
         }
     }
 }

@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promotion_Engine_SCM_CT_v1009", "Promotion_Engine_SCM_CT_v1009\Promotion_Engine_SCM_CT_v1009.csproj", "{C428E236-DBC8-4AE5-BDC3-9739D1DF8613}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Promotion_Engine_SCM_CT_v1009_Tests", "Promotion_Engine_SCM_CT_v1009_Tests\Promotion_Engine_SCM_CT_v1009_Tests.csproj", "{0C44E141-AC51-4105-83F3-0D802F9FF98C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,5 +15,9 @@ Global
 		{C428E236-DBC8-4AE5-BDC3-9739D1DF8613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C428E236-DBC8-4AE5-BDC3-9739D1DF8613}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C428E236-DBC8-4AE5-BDC3-9739D1DF8613}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C44E141-AC51-4105-83F3-0D802F9FF98C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C44E141-AC51-4105-83F3-0D802F9FF98C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C44E141-AC51-4105-83F3-0D802F9FF98C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C44E141-AC51-4105-83F3-0D802F9FF98C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

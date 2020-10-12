@@ -2,7 +2,7 @@
 
 namespace Promotion_Engine_SCM_CT_v1009.Core.Interfaces
 {
-    public interface ICartActions
+    public interface ICartBuilder
     {
         /// <summary>
         /// Used to append a SKU to a cart
@@ -21,5 +21,11 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Interfaces
         /// </summary>
         /// <returns></returns>
         int Size();
+
+        /// <summary>
+        /// Get the current Cart
+        /// </summary>
+        /// <returns>The current Cart</returns>
+        Cart GetCart();
     }
 }
