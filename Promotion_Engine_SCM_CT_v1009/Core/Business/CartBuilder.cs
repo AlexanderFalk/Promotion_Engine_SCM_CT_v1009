@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
 using Promotion_Engine_SCM_CT_v1009.Core.Interfaces;
 using Promotion_Engine_SCM_CT_v1009.Models;
@@ -60,8 +61,49 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Business
 
         public double GetTotalCost()
         {
-            // TODO - Missing implementation
-            return 0.0;
+            _cart.TotalCost = 0.0;
+            if (_cart.IsPromotionUsed)
+            {
+                var hasPromotionCostBeenCalculated = false;
+                // Calculate those SKUs not a part of a Promotion
+                foreach (var sku in _cart.SKUs)
+                {
+                    if (!_cart.ActivePromotion.Promotions.Any(e => e.SKU.Equals(sku.Key)))
+                    {
+                        _cart.TotalCost += (int)sku.Key;
+                    }
+                }
+                foreach (var key in _cart.ActivePromotion.Promotions)
+                {
+                    var quotient = (int)Math.Ceiling((double)key.Count / _cart.SKUs[key.SKU]);
+                    var remainder = key.Count % _cart.SKUs[key.SKU];
+                    if (hasPromotionCostBeenCalculated)
+                    {
+                        if (remainder > 0)
+                            _cart.TotalCost += (int)key.SKU * remainder;
+                    }
+                    else
+                    {
+                        if (remainder > 0)
+                        {
+                            _cart.TotalCost += _cart.ActivePromotion.Cost * quotient + ((int)key.SKU * remainder);
+                        }
+                        else
+                        {
+                            _cart.TotalCost += _cart.ActivePromotion.Cost * quotient;
+                        }
+                        hasPromotionCostBeenCalculated = true;
+                    }
+                }
+            }
+            else
+            {
+                foreach (var key in _cart.SKUs)
+                {
+                    _cart.TotalCost += key.Value * (int)key.Key;
+                }
+            }
+            return _cart.TotalCost;
         }
 
         /// <summary>
@@ -72,31 +114,36 @@ namespace Promotion_Engine_SCM_CT_v1009.Core.Business
         {
             var promotions = _promotionEngine.GetPromotions();
 
-            foreach (var promotion in promotions)
+            // If no promotion has been added, then we check for eligibility
+            if (!_cart.IsPromotionUsed)
             {
-                var tempDict = new Dictionary<SKUEnum, int>();
-                foreach (var data in promotion.Promotions)
+                foreach (var promotion in promotions)
                 {
-                    tempDict.Add(data.SKU, data.Count);
-                }
+                    // Create temporary dict to store a promotion like the SKUs
+                    // are stored in the cart. 
+                    var tempDict = new Dictionary<SKUEnum, int>();
+                    foreach (var data in promotion.Promotions)
+                    {
+                        tempDict.Add(data.SKU, data.Count);
+                    }
 
-                var matchCount = tempDict
-                    .Where(entry => _cart.SKUs.ContainsKey(entry.Key) && _cart.SKUs[entry.Key] == entry.Value)
-                    .Count();
+                    // Check if any promotion has matched
+                    var matchCount = tempDict
+                        .Where(entry => _cart.SKUs.ContainsKey(entry.Key) && _cart.SKUs[entry.Key] % entry.Value == 0)
+                        .ToDictionary(entry => entry.Key, entry => entry.Value);
 
-                if (tempDict.Count == matchCount)
-                {
-                    _cart.IsPromotionUsed = true;
-                    _cart.ActivePromotion = promotion;
-                }
-
-                if(_cart.IsPromotionUsed)
-                {
-                    break;
+                    // If any promotion has matched, we save the promotion type
+                    // and break out of the loop.
+                    if (tempDict.Count == matchCount.Count)
+                    {
+                        _cart.IsPromotionUsed = true;
+                        _cart.ActivePromotion = promotion;
+                        break;
+                    }
                 }
             }
 
-            return false;
+            return _cart.IsPromotionUsed;
         }
     }
 }

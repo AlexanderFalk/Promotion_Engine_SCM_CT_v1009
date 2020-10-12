@@ -87,10 +87,13 @@ namespace Promotion_Engine_SCM_CT_v1009_Tests
             // Act
             cart.Add(SKUEnum.A);
             cart.Add(SKUEnum.C);
+            cart.Add(SKUEnum.C);
             cart.Add(SKUEnum.D);
 
+            var actualcost = cart.GetTotalCost();
+
             // Assert
-            Assert.AreEqual(expectedTotalCost, cart.GetTotalCost());
+            Assert.AreEqual(expectedTotalCost, actualcost);
             Assert.IsTrue(cart.GetCart().IsPromotionUsed);
         }
     }
